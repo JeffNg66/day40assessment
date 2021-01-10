@@ -2,6 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  password?: string;
+}
+
 // const API_URL = 'http://localhost:3000/api/test/';
 const API_URL = 'http://localhost:3000/api/';
 
@@ -24,8 +31,8 @@ export class UserService {
     return this.http.get(API_URL + 'mod', { responseType: 'text' });
   }
 
-  getAdminBoard(): Observable<any> {
-    return this.http.get(API_URL + 'admin', { responseType: 'text' });
+  getAdminBoard(): Observable<User[]> {
+    return this.http.get<User[]>(API_URL + 'admin', { responseType: 'json' });
   }
   
 }

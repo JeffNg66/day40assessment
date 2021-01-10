@@ -9,11 +9,17 @@ exports.userBoard = (req, res) => {
 };
 
 exports.adminBoard = async (req, res) => {
-  const users = await db.user.findAll({
-    attributes: ['id', 'username', 'email']
-  });
+  const users = await db.user.findAll(
+    // {
+    //   attributes: ['id', 'username', 'email']
+    // },
+    { 
+      include: 'roles'
+    }
+  );
+  console.log('findAll', users);
   try {
-    res.status(200).send(users);
+    res.status(200).json(users);
   } catch (error) {
     console.error(error)
     res.error(500).send({ message: error })    
