@@ -1,13 +1,23 @@
+const db = require("../models");
+
 exports.allAccess = (req, res) => {
-  res.status(200).send("Public Content.");
+  res.status(200).send("Public Content");
 };
 
 exports.userBoard = (req, res) => {
   res.status(200).send("User Content.");
 };
 
-exports.adminBoard = (req, res) => {
-  res.status(200).send("Admin Content.");
+exports.adminBoard = async (req, res) => {
+  const users = await db.user.findAll({
+    attributes: ['id', 'username', 'email']
+  });
+  try {
+    res.status(200).send(users);
+  } catch (error) {
+    console.error(error)
+    res.error(500).send({ message: error })    
+  }
 };
 
 exports.moderatorBoard = (req, res) => {

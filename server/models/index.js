@@ -15,7 +15,8 @@ const sequelize = new Sequelize(
       min: config.pool.min,
       acquire: config.pool.acquire,
       idle: config.pool.idle
-    }
+    },
+    logging: false,
   }
 );
 
@@ -38,6 +39,6 @@ db.user.belongsToMany(db.role, {
   otherKey: "roleId"
 });
 
-db.ROLES = ["user", "admin", "moderator"];
+db.ROLES = ["user", "driver", "admin"];
 
 module.exports = db;
