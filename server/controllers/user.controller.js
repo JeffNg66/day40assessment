@@ -26,6 +26,6 @@ exports.adminBoard = async (req, res) => {
   }
 };
 
-exports.moderatorBoard = (req, res) => {
-  res.status(200).send("Moderator Content.");
+exports.driverBoard = (req, res) => {
+  res.status(200).send("Driver Content.");
 };

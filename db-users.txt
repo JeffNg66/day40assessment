@@ -6,6 +6,13 @@
 }
 
 {
+  "username": "admin1",
+  "email": "admin1@test.com",
+  "password": "admin123",
+  "roles": ["admin", "user"]
+}
+
+{
   "username": "wilma",
   "email": "wilma@example.com",
   "password": "wilma123",
@@ -24,6 +31,13 @@
   "email": "jeff@example.com",
   "password": "jeff123",
   "roles": ["user"]
+}
+
+{
+  "username": "mike",
+  "email": "mike@example.com",
+  "password": "mike123",
+  "roles": ["driver"]
 }
 
 {
