@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(username, password).subscribe(
       data => {
-        console.info('login data', data)
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
 

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -6,8 +6,12 @@ export interface User {
   id: string;
   username: string;
   email: string;
-  password?: string;
+  roles: string[];
 }
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 // const API_URL = 'http://localhost:3000/api/test/';
 const API_URL = 'http://localhost:3000/api/';
@@ -35,4 +39,7 @@ export class UserService {
     return this.http.get<User[]>(API_URL + 'admin', { responseType: 'json' });
   }
   
+  deleteUser(id: string): Observable<any> {
+    return this.http.delete(`${API_URL}del/${id}`)
+  }
 }

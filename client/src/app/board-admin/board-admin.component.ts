@@ -14,14 +14,24 @@ export class BoardAdminComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.listUsers();
+  }
+
+  listUsers(): void {
     this.userService.getAdminBoard().subscribe(
       user => {
         this.users = user;
-        console.info('thisuser', this.users)
-      },
-      // err => {
-      //   this.users = JSON.parse(err.error).message;
-      // }
-    );
+      }
+    )
   }
+
+  deleteUser(id) {
+    if (confirm('Are you sure you want to delete?')) {
+      this.userService.deleteUser(id)
+        .subscribe(() => {
+          this.listUsers();
+        })
+    }
+  }
+
 }
