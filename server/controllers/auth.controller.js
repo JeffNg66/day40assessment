@@ -9,6 +9,10 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
+  // if first sigup, set as role as admin and user
+  User.count().then(c => {
+    if (c === 0) { req.body.roles = ["admin", "user"]}
+  })
   // Save User to Database
   User.create({
     username: req.body.username,
