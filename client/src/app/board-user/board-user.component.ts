@@ -52,11 +52,12 @@ export class BoardUserComponent implements OnInit {
         this.filteredOptions = data['results']
       }
       
-      console.log(this.filteredOptions)
+      // console.log(this.filteredOptions)
       this.selectedLat = this.filteredOptions[0].LATITUDE
       this.selectedLng = this.filteredOptions[0].LONGITUDE
-      console.log('Lat', this.selectedLat)
-      console.log('Lng', this.selectedLng)
+      // console.log('Lat', this.selectedLat)
+      // console.log('Lng', this.selectedLng)
     })
   }
+
 }

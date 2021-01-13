@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { MapComponent } from './board-user/map.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     ProfileComponent,
     BoardAdminComponent,
     BoardDriverComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

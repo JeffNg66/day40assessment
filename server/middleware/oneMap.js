@@ -18,11 +18,12 @@ oneMapSearch = async (req, res) => {
   result = await result.json()
 
   try {
-    console.info('result', result)
+    // console.info('result', result)
     res.status(200).send(result)
   } catch (err) {
-    console.error('Error ', err)
-    return Promise.reject(e)
+    // console.error('Error ', err)
+    res.error('Error',err)
+    // return Promise.reject(e)
   }
 }
 
