@@ -1,4 +1,4 @@
 module.exports = {
   secret: "my-secret-key",
-  token_time: 86400  // 24 hours
+  token_time: 15 // 86400  // 24 hours
 };

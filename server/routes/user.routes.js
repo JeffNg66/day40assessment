@@ -1,4 +1,4 @@
-const { authJwt } = require("../middleware");
+const { authJwt, oneMap } = require("../middleware");
 const controller = require("../controllers/user.controller");
 
 module.exports = function(app) {
@@ -33,6 +33,11 @@ module.exports = function(app) {
   app.delete(
     "/api/del/:id",
     controller.deleteUser
+  );
+
+  app.get(
+    "/api/search",
+    oneMap.oneMapSearch
   );
   
 };

@@ -9,7 +9,7 @@ import { User, UserService } from '../_services/user.service';
 export class BoardAdminComponent implements OnInit {
 
   users: User[] = [];
-  // content?: string;
+  content?: string = '';
 
   constructor(private userService: UserService) { }
 
@@ -21,6 +21,10 @@ export class BoardAdminComponent implements OnInit {
     this.userService.getAdminBoard().subscribe(
       user => {
         this.users = user;
+      },
+      err => {
+        // this.content = JSON.parse(err.error).message;
+        this.content = (err.error).message;
       }
     )
   }
