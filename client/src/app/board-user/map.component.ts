@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import * as L from 'leaflet';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-map',
@@ -8,11 +9,18 @@ import * as L from 'leaflet';
 })
 export class MapComponent implements AfterViewInit {
 
+  // lat: number
+  // lng: number
+
   private map;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngAfterViewInit(): void {
+   
+    // this.lat = this.userService.lat
+    // this.lng = this.userService.lng
+    // console.log('lat', this.lat)
     this.initMap()
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -22,9 +30,10 @@ export class MapComponent implements AfterViewInit {
     tiles.addTo(this.map);
   }
 
-  private initMap(): void {
+  initMap(): void {
+
     this.map = L.map('map', {
-      center: [1.290270, 103.851959],
+      center: [this.userService.lat, this.userService.lng],
       zoom:18
     });
   }

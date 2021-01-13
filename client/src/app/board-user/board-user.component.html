@@ -7,7 +7,7 @@
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <!-- <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option> -->
           <!-- <ng-container *ngIf="!isLoading"> -->
-          <mat-option *ngFor="let option of filteredOptions" [value]="option.ADDRESS">
+          <mat-option *ngFor="let option of filteredOptions" [value]="option.ADDRESS" (click)="onClick()">
             {{option.BLK_NO}} {{option.SEARCHVAL}}
           </mat-option>
           <!-- </ng-container> -->
@@ -21,4 +21,4 @@
     <h5>Longitude: {{selectedLng}}</h5>
   </header>
 </div>
-<!-- <app-map></app-map> -->
+<app-map></app-map>

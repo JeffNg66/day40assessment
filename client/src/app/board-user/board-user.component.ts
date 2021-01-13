@@ -13,7 +13,7 @@ import { UserService } from '../_services/user.service';
 export class BoardUserComponent implements OnInit {
 
   // content?: string;
-  myControl = new FormControl();
+  myControl = new FormControl('');
   options: string[] = [];
   filteredOptions: any;
   isLoading = false;
@@ -44,20 +44,29 @@ export class BoardUserComponent implements OnInit {
       switchMap(value => this.userService.getUserBoard(value))
     )
     .subscribe(data => {
-      if (data['results'] == undefined) {
+      if ((data['results'] == undefined) || (data['results'].length == 0)) {
         this.errorMsg = 'No response from API'
         this.filteredOptions = []
       } else {
         this.errorMsg = ''
         this.filteredOptions = data['results']
+        console.info('filteredOptions', this.filteredOptions)
+        this.selectedLat = this.filteredOptions[0].LATITUDE
+        this.selectedLng = this.filteredOptions[0].LONGITUDE
       }
       
       // console.log(this.filteredOptions)
-      this.selectedLat = this.filteredOptions[0].LATITUDE
-      this.selectedLng = this.filteredOptions[0].LONGITUDE
+      // this.userService.lat = parseFloat(this.selectedLat)
+      // this.userService.lng = parseFloat(this.selectedLng)
       // console.log('Lat', this.selectedLat)
       // console.log('Lng', this.selectedLng)
     })
+  }
+
+  onClick() {
+    console.log('clicked')
+    this.userService.lat = parseFloat(this.selectedLat)
+    this.userService.lng = parseFloat(this.selectedLng)
   }
 
 }

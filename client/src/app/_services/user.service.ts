@@ -13,11 +13,11 @@ export interface addrSearch {
   SEARCHVAL: string,
   BLK_NO: string,
   ROAD_NAME: string,
-  BUILDING: string,      
+  BUILDING: string,
   ADDRESS: string,
-  POSTAL: string,        
-  X: string,   
-  Y: string,   
+  POSTAL: string,
+  X: string,
+  Y: string,
   LATITUDE: string,
   LONGITUDE: string,
   LONGTITUDE: string
@@ -33,6 +33,9 @@ const API_URL = 'http://localhost:3000/api/';
   providedIn: 'root'
 })
 export class UserService {
+
+  lat: number = 1.29795856720987
+  lng: number = 103.787435440348
 
   constructor(private http: HttpClient) { }
 
@@ -54,7 +57,7 @@ export class UserService {
   getAdminBoard(): Observable<any> {
     return this.http.get(API_URL + 'admin', { responseType: 'json' });
   }
-  
+
   deleteUser(id: string): Observable<any> {
     return this.http.delete(`${API_URL}del/${id}`)
   }

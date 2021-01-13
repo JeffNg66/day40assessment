@@ -15,9 +15,9 @@ oneMapSearch = async (req, res) => {
   )
 
   let result = await fetch(url)
-  result = await result.json()
-
+  
   try {
+    result = await result.json()
     // console.info('result', result)
     res.status(200).send(result)
   } catch (err) {
