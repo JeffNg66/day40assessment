@@ -14,13 +14,9 @@ export class BoardUserComponent implements OnInit {
 
   content?: string;
   myControl = new FormControl('');
-  options: string[] = [];
   filteredOptions: any;
   isLogin = false;
   errorMsg: string
-  selectedLat: string
-  selectedLng: string
-
 
   constructor(private userService: UserService,
     private http: HttpClient) { }
@@ -63,19 +59,16 @@ export class BoardUserComponent implements OnInit {
         } else {
           this.errorMsg = ''
           this.filteredOptions = data['results']
-          // console.info('filteredOptions', this.filteredOptions)
-          this.selectedLat = this.filteredOptions[0].LATITUDE
-          this.selectedLng = this.filteredOptions[0].LONGITUDE
         }
 
       })
   }
   
-  onClick() {
+  onClick(i) {
     // console.log('clicked')
     this.userSelectAddr = {
-      lat: parseFloat(this.selectedLat),
-      lng: parseFloat(this.selectedLng)
+      lat: parseFloat(this.filteredOptions[i].LATITUDE),
+      lng: parseFloat(this.filteredOptions[i].LONGITUDE)
     }
   }
 }
