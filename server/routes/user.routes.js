@@ -36,7 +36,8 @@ module.exports = function(app) {
   );
 
   app.get(
-    "/api/search",
+    "/api/search", 
+    // [authJwt.verifyToken],
     oneMap.oneMapSearch
   );
   

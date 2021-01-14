@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
-import { UserService } from '../_services/user.service';
+import { AddrPicked, UserService } from '../_services/user.service';
 
 
 @Component({
@@ -12,61 +12,70 @@ import { UserService } from '../_services/user.service';
 })
 export class BoardUserComponent implements OnInit {
 
-  // content?: string;
+  content?: string;
   myControl = new FormControl('');
   options: string[] = [];
   filteredOptions: any;
-  isLoading = false;
+  isLogin = false;
   errorMsg: string
   selectedLat: string
   selectedLng: string
 
+
   constructor(private userService: UserService,
-              private http: HttpClient) { }
+    private http: HttpClient) { }
+
+  userSelectAddr: AddrPicked = {
+    lat: 1.29795856720987,
+    lng: 103.787435440348
+  }
 
   ngOnInit(): void {
-    // this.userService.getUserBoard().subscribe(
-    //   data => {
-    //     this.content = data;
-    //   },
-    //   err => {
-    //     this.content = JSON.parse(err.error).message;
-    //   }
-    // );
-    this.myControl.valueChanges
-    .pipe(
-      debounceTime(500),
-      tap(() => {
-        this.errorMsg = ""
-        this.filteredOptions = []
-        this.isLoading = true
-      }),
-      switchMap(value => this.userService.getUserBoard(value))
-    )
-    .subscribe(data => {
-      if ((data['results'] == undefined) || (data['results'].length == 0)) {
-        this.errorMsg = 'No response from API'
-        this.filteredOptions = []
-      } else {
-        this.errorMsg = ''
-        this.filteredOptions = data['results']
-        console.info('filteredOptions', this.filteredOptions)
-        this.selectedLat = this.filteredOptions[0].LATITUDE
-        this.selectedLng = this.filteredOptions[0].LONGITUDE
+    this.userService.getUserBoard().subscribe(
+      data => {
+        this.content = data;
+        this.oneMapSearch()
+        this.isLogin = true
+      },
+      err => {
+        this.content = JSON.parse(err.error).message;
+        this.isLogin = false
       }
-      
-      // console.log(this.filteredOptions)
-      // this.userService.lat = parseFloat(this.selectedLat)
-      // this.userService.lng = parseFloat(this.selectedLng)
-      // console.log('Lat', this.selectedLat)
-      // console.log('Lng', this.selectedLng)
-    })
+    );
+
   }
 
+  oneMapSearch() {
+    this.myControl.valueChanges
+      .pipe(
+        debounceTime(500),
+        tap(() => {
+          this.errorMsg = ""
+          this.filteredOptions = []
+          // this.isLoading = true
+        }),
+        switchMap(value => this.userService.getOneMap(value))
+      )
+      .subscribe(data => {
+        if ((data['results'] == undefined) || (data['results'].length == 0)) {
+          this.errorMsg = 'No response from API'
+          this.filteredOptions = []
+        } else {
+          this.errorMsg = ''
+          this.filteredOptions = data['results']
+          // console.info('filteredOptions', this.filteredOptions)
+          this.selectedLat = this.filteredOptions[0].LATITUDE
+          this.selectedLng = this.filteredOptions[0].LONGITUDE
+        }
+
+      })
+  }
+  
   onClick() {
-    console.log('clicked')
-    this.userService.lat = parseFloat(this.selectedLat)
-    this.userService.lng = parseFloat(this.selectedLng)
+    // console.log('clicked')
+    this.userSelectAddr = {
+      lat: parseFloat(this.selectedLat),
+      lng: parseFloat(this.selectedLng)
+    }
   }
-
 }

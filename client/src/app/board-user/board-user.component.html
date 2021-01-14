@@ -1,24 +1,26 @@
 <div class="container">
   <header class="jumbotron">
-    <!-- <p>{{ content }}</p> -->
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <input type="text" placeholder="Enter SG Address" matInput [formControl]="myControl" [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <!-- <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option> -->
-          <!-- <ng-container *ngIf="!isLoading"> -->
-          <mat-option *ngFor="let option of filteredOptions" [value]="option.ADDRESS" (click)="onClick()">
-            {{option.BLK_NO}} {{option.SEARCHVAL}}
-          </mat-option>
-          <!-- </ng-container> -->
-        </mat-autocomplete>
-      </mat-form-field>
-      <!-- <button (click)="onSubmit()">Submit</button> -->
-    </form>
-    <br>
-    <h5>Selected Value: {{myControl.value}}</h5>
-    <h5>Latitude: {{selectedLat}}</h5>
-    <h5>Longitude: {{selectedLng}}</h5>
+    <p>{{ content }}</p>
+    <div *ngIf="isLogin">
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Enter SG Address" matInput [formControl]="myControl" [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <!-- <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option> -->
+            <!-- <ng-container *ngIf="!isLoading"> -->
+            <mat-option *ngFor="let option of filteredOptions" [value]="option.ADDRESS" (click)="onClick()">
+              {{option.BLK_NO}} {{option.SEARCHVAL}}
+            </mat-option>
+            <!-- </ng-container> -->
+          </mat-autocomplete>
+        </mat-form-field>
+        <!-- <button (click)="onSubmit()">Submit</button> -->
+      </form>
+      <br>
+      <h5>Selected Value: {{myControl.value}}</h5>
+      <h5>Latitude: {{userSelectAddr.lat}}</h5>
+      <h5>Longitude: {{userSelectAddr.lng}}</h5>
+    </div>
   </header>
 </div>
-<app-map></app-map>
+<app-map [locSelected]="userSelectAddr" *ngIf="isLogin"></app-map>

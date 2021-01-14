@@ -9,7 +9,7 @@ export interface User {
   roles: string[];
 }
 
-export interface addrSearch {
+export interface AddrSearch {
   SEARCHVAL: string,
   BLK_NO: string,
   ROAD_NAME: string,
@@ -20,7 +20,12 @@ export interface addrSearch {
   Y: string,
   LATITUDE: string,
   LONGITUDE: string,
-  LONGTITUDE: string
+  LONGTITUDE?: string
+}
+
+export interface AddrPicked {
+  lat: number,
+  lng: number
 }
 
 const httpOptions = {
@@ -34,8 +39,8 @@ const API_URL = 'http://localhost:3000/api/';
 })
 export class UserService {
 
-  lat: number = 1.29795856720987
-  lng: number = 103.787435440348
+  // lat: number = 1.29795856720987
+  // lng: number = 103.787435440348
 
   constructor(private http: HttpClient) { }
 
@@ -43,11 +48,12 @@ export class UserService {
     return this.http.get(API_URL + 'all', { responseType: 'text' });
   }
 
-  // getUserBoard(): Observable<any> {
-  //   return this.http.get(API_URL + 'user', { responseType: 'text' });
-  // }
-  getUserBoard(v): Observable<addrSearch> {
-    return this.http.get<addrSearch>(`${API_URL}search/?q=${v}`, { responseType: 'json' });
+  getUserBoard(): Observable<any> {
+    return this.http.get(API_URL + 'user', { responseType: 'text' });
+  }
+
+  getOneMap(v): Observable<AddrSearch> {
+    return this.http.get<AddrSearch>(`${API_URL}search/?q=${v}`, { responseType: 'json' });
   }
 
   getDriverBoard(): Observable<any> {

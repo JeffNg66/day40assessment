@@ -1,26 +1,24 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import { UserService } from '../_services/user.service';
+import { AddrPicked, UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit {
+// export class MapComponent implements AfterViewInit, OnChanges {
+export class MapComponent implements OnInit, OnChanges {
 
-  // lat: number
-  // lng: number
+  @Input() locSelected: AddrPicked
 
-  private map;
+  map;
 
   constructor(private userService: UserService) { }
 
-  ngAfterViewInit(): void {
-   
-    // this.lat = this.userService.lat
-    // this.lng = this.userService.lng
-    // console.log('lat', this.lat)
+  // ngAfterViewInit(): void {
+  ngOnInit(): void {
+    // console.log('OnInit lat', this.locSelected)
     this.initMap()
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -28,13 +26,19 @@ export class MapComponent implements AfterViewInit {
     });
 
     tiles.addTo(this.map);
+
+  }
+
+  ngOnChanges(): void {
+    // console.log('onChange locSelected', this.locSelected.lat)
+    this.map?.setView(new L.LatLng(this.locSelected.lat, this.locSelected.lng),17);
   }
 
   initMap(): void {
-
+    // console.log('map lat', this.locSelected.lat)
     this.map = L.map('map', {
-      center: [this.userService.lat, this.userService.lng],
-      zoom:18
+      center: [this.locSelected.lat, this.locSelected.lng],
+      zoom: 18
     });
   }
 
