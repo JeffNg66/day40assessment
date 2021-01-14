@@ -33,7 +33,7 @@ export class BoardUserComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserBoard().subscribe(
       data => {
-        this.content = data;
+        // this.content = data;
         this.oneMapSearch()
         this.isLogin = true
       },

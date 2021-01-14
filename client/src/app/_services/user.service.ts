@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface User {
   id: string;
@@ -32,7 +33,8 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const API_URL = 'http://localhost:3000/api/';
+// const API_URL = 'http://localhost:3000/api/';
+const API_URL = `${environment.api_url}/api/`;
 
 @Injectable({
   providedIn: 'root'
