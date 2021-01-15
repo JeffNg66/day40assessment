@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // deploy client front
-app.use(express.static(__dirname + '/dist/client'))
+// app.use(express.static(__dirname + '/dist/client'))
 
 // database
 const db = require("./models");
